@@ -162,28 +162,3 @@ fun shoppingListIItem(item: ShoppingItem, onEditClick: () -> Unit, onDeleteClick
     }
 }
 
-@Composable
-fun shoppingItemEditor(item: ShoppingItem, onEditComplete: (String, Int) -> Unit) {
-    var editedName by remember { mutableStateOf(item.name) }
-    var editedQuantity by remember { mutableStateOf(item.quantity.toString()) }
-    var isEditing by remember { mutableStateOf(item.isEditing) }
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .background(Color.Blue)
-        .padding(8.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-        Column {
-            BasicTextField(value = editedName, onValueChange = { editedName = it }, singleLine = true, modifier = Modifier
-                .wrapContentSize()
-                .padding(8.dp))
-            BasicTextField(value = editedQuantity, onValueChange = { editedQuantity = it }, singleLine = true, modifier = Modifier
-                .wrapContentSize()
-                .padding(8.dp))
-        }
-        Button(onClick = {
-            isEditing = false
-            onEditComplete(editedName, editedQuantity.toIntOrNull()?: 1)
-        }) {
-            Text(text = "Save")
-        }
-    }
-}
